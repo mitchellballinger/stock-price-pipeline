@@ -1,0 +1,17 @@
+# Build directories
+build/
+cmake-build-*/
+
+# IDE files
+.idea/
+
+# Compiled files
+*.o
+*.exe
+*.out
+
+# CMake generated files (in source builds)
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
