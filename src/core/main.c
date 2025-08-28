@@ -1,6 +1,6 @@
 
 #include "config.h"
-#include "http_client.h"
+#include "../network/http_client.h"
 #include "stock_data.h"
 
 int main() {
