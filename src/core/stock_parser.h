@@ -1,0 +1,11 @@
+//
+// Created by Mitchell on 8/27/2025.
+//
+
+#ifndef STOCK_PIPELINE_STOCK_PARSER_H
+#define STOCK_PIPELINE_STOCK_PARSER_H
+
+
+
+
+#endif //STOCK_PIPELINE_STOCK_PARSER_H
