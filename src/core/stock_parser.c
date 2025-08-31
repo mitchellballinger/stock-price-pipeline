@@ -14,6 +14,9 @@
  * Manually parses the timestamp because cJSON cannot hold large integers
  */
 int parse_stock_data(const char* json_string, StockDataPoint* stock_data) {
+    if (json_string == NULL) {
+        return -1;
+    }
     cJSON *root = cJSON_Parse(json_string);
     if (!root) return -1;
     cJSON *results = cJSON_GetObjectItem(root, "results");

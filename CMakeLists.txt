@@ -3,29 +3,34 @@ project(stock_pipeline)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(main src/core/main.c
-        src/core/config.h
+# Create a library with your core functionality
+add_library(stock_core
         src/core/config.c
-        src/core/stock_data.h
         src/core/stock_data.c
-        src/network/http_client.c
-        src/network/http_client.h
         src/core/stock_parser.c
-        src/core/stock_parser.h
         src/core/csv_writer.c
-        src/core/csv_writer.h)
+        src/network/http_client.c
+)
 
+target_include_directories(stock_core PUBLIC src/core src/network)
+
+# Main executable
+add_executable(main src/core/main.c)
+target_link_libraries(main PRIVATE stock_core)
+
+# Find packages
 find_package(CURL REQUIRED)
 
 if(WIN32)
     find_package(CJSON REQUIRED)
-    target_link_libraries(main PRIVATE CURL::libcurl cjson)
-
+    target_link_libraries(stock_core PRIVATE CURL::libcurl cjson)
 else()
     find_package(PkgConfig REQUIRED)
     pkg_check_modules(CJSON REQUIRED libcjson)
-    target_link_libraries(main PRIVATE CURL::libcurl ${CJSON_LIBRARIES})
-    target_include_directories(main PRIVATE ${CJSON_INCLUDE_DIRS})
+    target_link_libraries(stock_core PRIVATE CURL::libcurl ${CJSON_LIBRARIES})
+    target_include_directories(stock_core PRIVATE ${CJSON_INCLUDE_DIRS})
 endif()
+
+target_link_libraries(main PRIVATE stock_core)
 
 add_subdirectory(tests)
