@@ -4,6 +4,8 @@
 
 #include <curl/curl.h>
 #include "http_client.h"
+#include <stdlib.h>
+#include <string.h>
 
 /**
  * Callback function that allocates memory for and stores the string returned from the API call
