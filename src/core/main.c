@@ -8,6 +8,12 @@
 #include "stock_data.h"
 #include "stock_parser.h"
 
+
+/**
+ * Main entry point, calls all necessary modules to retrieve stock data and
+ * write it to a csv file
+ * @return 0 upon completion
+ */
 int main() {
     Config *config = load_config();
     char tickers[5][10];
@@ -28,7 +34,13 @@ int main() {
             }
         }
         if (successful_count > 0) {
-            write_stock_data_to_csv("stock_data.csv", stock_data_array, successful_count);
+            printf("Writing %d successful records to CSV\n", successful_count);
+            int csv_result = write_stock_data_to_csv("stock_data.csv", stock_data_array, successful_count);
+            if (csv_result != 0) {
+                printf("Failed to write to CSV\n");
+            }
+        } else {
+            printf("No data to write - all parsing failed\n");
         }
     }
     else {

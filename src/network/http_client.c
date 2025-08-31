@@ -5,6 +5,10 @@
 #include <curl/curl.h>
 #include "http_client.h"
 
+/**
+ * Callback function that allocates memory for and stores the string returned from the API call
+ * When buffer capacity is reached, capacity memory is doubled
+ */
 size_t write_callback(char *ptr, size_t size, size_t nmemb, void *userdata) {
     ResponseBuffer* response_buffer = userdata;
     const size_t new_memory = size * nmemb;
@@ -22,6 +26,9 @@ size_t write_callback(char *ptr, size_t size, size_t nmemb, void *userdata) {
     return new_memory;
 }
 
+/**
+ * Calls the stock data api
+ */
 int fetch_stock_data(Config* config, char tickers[][10], const int ticker_count, char** json_response) {
     CURL *curl = curl_easy_init();
     ResponseBuffer buffer[ticker_count];

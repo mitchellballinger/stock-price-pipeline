@@ -5,6 +5,10 @@
 #ifndef STOCK_PIPELINE_CONFIG_H
 #define STOCK_PIPELINE_CONFIG_H
 
+/**
+ * Retrieves API key and URL from config file
+ */
+
 typedef struct {
     char api_key[64];
     char base_url[128];

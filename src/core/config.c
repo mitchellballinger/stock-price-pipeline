@@ -7,6 +7,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+/**
+ * Loads the config from config.txt file
+ */
 Config* load_config() {
     Config *config = malloc(sizeof(Config));
 

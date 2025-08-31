@@ -6,6 +6,9 @@
 #include <string.h>
 #include "stock_data.h"
 
+/**
+ * Retrieves the stock tickers from stocks.txt file
+ */
 int read_stock_tickers(char tickers[5][10]) {
     char buffer[16];
     FILE *fptr = fopen("stocks.txt", "r");
