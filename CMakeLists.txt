@@ -11,7 +11,9 @@ add_executable(main src/core/main.c
         src/network/http_client.c
         src/network/http_client.h
         src/core/stock_parser.c
-        src/core/stock_parser.h)
+        src/core/stock_parser.h
+        src/core/csv_writer.c
+        src/core/csv_writer.h)
 
 find_package(CURL REQUIRED)
 find_package(CJSON REQUIRED)
