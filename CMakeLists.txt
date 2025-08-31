@@ -16,5 +16,14 @@ add_executable(main src/core/main.c
         src/core/csv_writer.h)
 
 find_package(CURL REQUIRED)
-find_package(CJSON REQUIRED)
-target_link_libraries(main PRIVATE CURL::libcurl cjson)
+
+if(WIN32)
+    find_package(CJSON REQUIRED)
+    target_link_libraries(main PRIVATE CURL::libcurl cjson)
+
+else()
+    find_package(PkgConfig REQUIRED)
+    pkg_check_modules(CJSON REQUIRED libcjson)
+    target_link_libraries(main PRIVATE CURL::libcurl ${CJSON_LIBRARIES})
+    target_include_directories(main PRIVATE ${CJSON_INCLUDE_DIRS})
+endif()
