@@ -27,3 +27,5 @@ else()
     target_link_libraries(main PRIVATE CURL::libcurl ${CJSON_LIBRARIES})
     target_include_directories(main PRIVATE ${CJSON_INCLUDE_DIRS})
 endif()
+
+add_subdirectory(tests)
