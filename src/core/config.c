@@ -17,6 +17,20 @@ Config* load_config() {
         return NULL;
     }
 
+    char *env_api_key = getenv("POLYGON_API_KEY");
+    char *env_base_url = getenv("POLYGON_BASE_URL");
+
+    if (env_api_key && env_base_url) {
+        // Use environment variables
+        strncpy(config->api_key, env_api_key, sizeof(config->api_key) - 1);
+        config->api_key[sizeof(config->api_key) - 1] = '\0';
+
+        strncpy(config->base_url, env_base_url, sizeof(config->base_url) - 1);
+        config->base_url[sizeof(config->base_url) - 1] = '\0';
+
+        return config;
+    }
+
     char buffer[64];
     FILE *fptr = fopen("config.txt", "r");
     if (fptr != NULL) {

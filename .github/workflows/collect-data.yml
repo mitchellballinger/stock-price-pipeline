@@ -1,0 +1,40 @@
+name: Daily Stock Data Collection
+
+on:
+  schedule:
+    - cron: '0 23 * * 1-5'  # 7 PM EDT weekdays
+  workflow_dispatch:  # Allows manual triggering for testing
+
+jobs:
+  collect-data:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake libcurl4-openssl-dev libcjson-dev
+
+      - name: Build program
+        run: |
+          mkdir -p build
+          cd build
+          cmake ..
+          make
+
+      - name: Run data collection
+        env:
+          POLYGON_API_KEY: ${{ secrets.POLYGON_API_KEY }}
+          POLYGON_BASE_URL: "https://api.polygon.io/v2/aggs/ticker"
+        run: ./build/main
+
+      - name: Commit results
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add stock_data.csv
+          git commit -m "Daily stock data collection $(date)" || exit 0
+          git push
