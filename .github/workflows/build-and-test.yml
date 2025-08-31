@@ -1,0 +1,33 @@
+name: Build and Test
+on:
+  push:
+    branches:
+      - 'feature/*'
+  pull_request:
+    branches:
+      - '*'
+
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake libcurl4-openssl-dev libcjson-dev pkg-config
+
+      - name: Build program
+        run: |
+          mkdir -p build
+          cd build
+          cmake ..
+          make
+
+      - name: Run tests
+        run: |
+          ./build/tests/test_parser
+          ./build/tests/test_reader
