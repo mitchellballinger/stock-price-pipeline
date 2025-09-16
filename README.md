@@ -1,2 +1,2 @@
-# stock-price-prediction-pipeline
-Side project for real time stock price prediction pipeline
+# stock-price-pipeline
+Testing out some stuff with api calls and C
